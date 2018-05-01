@@ -11,7 +11,7 @@ import (
 var logChan = make(chan string)
 
 /* Just log */
-func logOnly(s ...string) {
+func log(s ...string) {
 	full := strings.Join(s, " ")
 	time := time.Now()
 	timeString := fmt.Sprintf("%d-%02d-%02d %02d:%02d:%02d", time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), time.Second())
@@ -19,10 +19,10 @@ func logOnly(s ...string) {
 }
 
 /* Log with connection information */
-func logConn(c net.Conn, s ...string) {
+func logWithConnection(c net.Conn, s ...string) {
 	full := strings.Join(s, " ")
 	info := fmt.Sprintf("%s: %s", c.RemoteAddr(), full)
-	logOnly(info)
+	log(info)
 }
 
 /* Logging daemon */

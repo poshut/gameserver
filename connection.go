@@ -18,7 +18,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 	/* Write a greeting to the screen */
 	_, err := conn.Write([]byte(greeting))
 	if err != nil {
-		logConn(conn, err.Error())
+		logWithConnection(conn, err.Error())
 		return
 	}
 
@@ -27,7 +27,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 		toWrite := fmt.Sprintf("%s\n", c)
 		_, err = conn.Write([]byte(toWrite))
 		if err != nil {
-			logConn(conn, err.Error())
+			logWithConnection(conn, err.Error())
 			return
 		}
 	}
@@ -35,7 +35,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 	/* Write usage information */
 	_, err = conn.Write([]byte(prompt))
 	if err != nil {
-		logConn(conn, err.Error())
+		logWithConnection(conn, err.Error())
 		return
 	}
 
@@ -46,7 +46,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 		/* Read a string from connection */
 		res, err := reader.ReadString('\n')
 		if err != nil {
-			logConn(conn, err.Error())
+			logWithConnection(conn, err.Error())
 			return
 		}
 
@@ -57,7 +57,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 		if strings.Compare(res, "exit") == 0 {
 			_, err = conn.Write([]byte("goodbye\n"))
 			if err != nil {
-				logConn(conn, err.Error())
+				logWithConnection(conn, err.Error())
 			}
 			return
 		}
@@ -65,7 +65,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 		/* Parse int from input, if it is not convertible or too big, print information and loop again */
 		input, err = strconv.ParseInt(res, 10, 32)
 		if err != nil || int64(len(config)) <= input {
-			logConn(conn, err.Error())
+			logWithConnection(conn, err.Error())
 			conn.Write([]byte(prompt))
 			continue
 		}
@@ -81,24 +81,24 @@ func handleConnection(conn net.Conn, config []configItem) {
 	/* Get pipes from command */
 	pipe0, err := cmd.StdinPipe()
 	if err != nil {
-		logConn(conn, err.Error())
+		logWithConnection(conn, err.Error())
 		return
 	}
 	pipe1, err := cmd.StdoutPipe()
 	if err != nil {
-		logConn(conn, err.Error())
+		logWithConnection(conn, err.Error())
 		return
 	}
 	pipe2, err := cmd.StderrPipe()
 	if err != nil {
-		logConn(conn, err.Error())
+		logWithConnection(conn, err.Error())
 		return
 	}
 
 	/* Start command */
 	err = cmd.Start()
 	if err != nil {
-		logConn(conn, err.Error())
+		logWithConnection(conn, err.Error())
 		return
 	}
 
@@ -112,7 +112,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 	<-ch
 	<-ch
 
-	logConn(conn, "done")
+	logWithConnection(conn, "done")
 }
 
 /* Connects two streams, optionally receiving a message on completion */
@@ -122,7 +122,7 @@ func connectStreams(input io.Reader, output io.Writer, ch chan<- bool, conn net.
 	for err == nil {
 		_, err = output.Write(buffer[:n])
 		if err != nil {
-			logConn(conn, err.Error())
+			logWithConnection(conn, err.Error())
 			return
 		}
 		n, err = input.Read(buffer)

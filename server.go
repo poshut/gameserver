@@ -16,7 +16,7 @@ func main() {
 	go startLogger(&args)
 	config, err := parseConfig(&args)
 	if err != nil {
-		fmt.Println("failed to parse config", err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 
@@ -26,12 +26,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	logOnly(fmt.Sprint("server started on ", ln.Addr()))
+	log(fmt.Sprint("server started on ", ln.Addr()))
 
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			logOnly(err.Error())
+			log(err.Error())
 		} else {
 			go handleConnection(conn, config)
 		}
