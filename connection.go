@@ -9,14 +9,14 @@ import (
 	"strings"
 )
 
-const GREETING string = "This is GameServer v0.1, (c) Richard Wohlbold 2018\n"
-const PROMPT string = "Please type in a number. Type 'exit' to exit.\n"
+const greeting string = "This is GameServer v0.1, (c) Richard Wohlbold 2018\n"
+const prompt string = "Please type in a number. Type 'exit' to exit.\n"
 
-func handleConnection(conn net.Conn, config []ConfigItem) {
+func handleConnection(conn net.Conn, config []configItem) {
 	defer conn.Close()
 
 	/* Write a greeting to the screen */
-	_, err := conn.Write([]byte(GREETING))
+	_, err := conn.Write([]byte(greeting))
 	if err != nil {
 		logConn(conn, err.Error())
 		return
@@ -33,7 +33,7 @@ func handleConnection(conn net.Conn, config []ConfigItem) {
 	}
 
 	/* Write usage information */
-	_, err = conn.Write([]byte(PROMPT))
+	_, err = conn.Write([]byte(prompt))
 	if err != nil {
 		logConn(conn, err.Error())
 		return
@@ -66,7 +66,7 @@ func handleConnection(conn net.Conn, config []ConfigItem) {
 		input, err = strconv.ParseInt(res, 10, 32)
 		if err != nil || int64(len(config)) <= input {
 			logConn(conn, err.Error())
-			conn.Write([]byte(PROMPT))
+			conn.Write([]byte(prompt))
 			continue
 		}
 		break
