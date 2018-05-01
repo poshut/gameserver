@@ -7,19 +7,26 @@ import (
 )
 
 func main() {
+
+	fmt.Println("getting arguments")
+
 	args, err := getArgs()
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
+	fmt.Println("starting logger")
 	go startLogger(&args)
+
+	fmt.Println("parsing config")
 	config, err := parseConfig(&args)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
+	fmt.Println("starting socket")
 	ln, err := net.Listen("tcp", args.port)
 	if err != nil {
 		fmt.Println(err)

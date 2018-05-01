@@ -15,6 +15,8 @@ const prompt string = "Please type in a number. Type 'exit' to exit.\n"
 func handleConnection(conn net.Conn, config []configItem) {
 	defer conn.Close()
 
+	logWithConnection(conn, "connection established")
+
 	/* Write a greeting to the screen */
 	_, err := conn.Write([]byte(greeting))
 	if err != nil {
@@ -74,6 +76,7 @@ func handleConnection(conn net.Conn, config []configItem) {
 
 	/* Get the chosen configuration item */
 	chosenConfig := config[input]
+	logWithConnection(conn, "chose", chosenConfig.name)
 
 	/* Build a command object */
 	cmd := chosenConfig.toCommand()
