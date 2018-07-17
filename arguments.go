@@ -52,6 +52,13 @@ func getArgs() (serverArgs, error) {
 				return defaultArgs(), errors.New("no separator given")
 			}
 			args.separator = osArgs[i]
+		case "-h", "--help":
+			fmt.Println(`Syntax: gameserver [-c CONFIG | --config CONFIG] [-p PORT | --port PORT] [-o LOGFILE | --output LOGFILE] [-s SEPARATOR | --separator SEPARATOR]
+-c, --config: The configuration file to use
+-p, --port: The port the server runs on
+-o, --output: The logfile to write to
+-s, --separator: The separator to use in the config`)
+			os.Exit(0)
 		default:
 			return defaultArgs(), errors.New(fmt.Sprint("unrecognized option:", osArgs[i]))
 		}
