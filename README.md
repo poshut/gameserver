@@ -23,4 +23,3 @@ I DO NOT TAKE ANY LIABILITY FOR DAMAGES THAT OCCUR TO YOUR SYSTEM BECAUSE OF ANY
 
 ## TODO
 * Apply Go naming conventions
-* Use better example config file
