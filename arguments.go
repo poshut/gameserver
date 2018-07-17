@@ -40,13 +40,13 @@ func getArgs() (serverArgs, error) {
 				return defaultArgs(), errors.New("no config file given")
 			}
 			args.configFile = osArgs[i]
-		case "-o":
+		case "-o", "--output":
 			i++
 			if i >= len(osArgs) {
 				return defaultArgs(), errors.New("no output file given")
 			}
 			args.logFile = osArgs[i]
-		case "-s":
+		case "-s", "--separator":
 			i++
 			if i >= len(osArgs) {
 				return defaultArgs(), errors.New("no separator given")

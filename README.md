@@ -22,6 +22,5 @@ I DO NOT GIVE ANY WARRANTY THAT THIS PROGRAM WORKS AS INTENDED AND
 I DO NOT TAKE ANY LIABILITY FOR DAMAGES THAT OCCUR TO YOUR SYSTEM BECAUSE OF ANY REASON WHATSOEVER.**
 
 ## TODO
-* Add long versions for log file and separator option
 * Apply Go naming conventions
 * Use better example config file
