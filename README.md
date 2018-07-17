@@ -23,3 +23,4 @@ I DO NOT TAKE ANY LIABILITY FOR DAMAGES THAT OCCUR TO YOUR SYSTEM BECAUSE OF ANY
 
 ## TODO
 * Apply Go naming conventions
+* Add option to set current working directory in config file
