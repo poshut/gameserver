@@ -22,7 +22,7 @@ You can either build the server and run it locally or run it in a docker image.
 To build it locally, run ```go build github.com/poshut/gameserver/cmd/gameserver``` to obtain the executable.
 
 To use the docker image, run ```docker-compose up```.
-The image uses Arch Linux, and you can add custom interpreters or runtimes with ```pacman -S```, for Java do: ```pacman -S --noconfirm jdk10-openjdk```.
+The image uses Arch Linux, and you can add custom interpreters or runtimes with ```pacman -S --noconfirm```, for Java do: ```pacman -S --noconfirm jdk10-openjdk```.
 
 ## Warning
 **DO NOT GIVE USERS ACCESS TO PROGRAMS THAT ALLOW ARBITRARY CODE EXECUTION, SUCH AS SHELLS, INTERACTIVE INTERPRETERS OR OTHER PROGRAMS.
