@@ -17,11 +17,11 @@ The second parameter is the program to execute when this option is selected. A p
 Any further parameters are arguments to the program.
 
 ## Instructions
-Do ```go build``` to obtain the executable. You can run it just like it is, or use a docker image. 
+Do ```go build src/gameserver``` to obtain the executable. You can run it just like it is, or use a docker image. 
 
 The docker image copies the executable (assumed to be named ```gameserver```) from the current directory into ```/```. It uses the directory ```./config``` as a bind mount to ```/data``` to load the config, custom programs and store logfiles.
 It exposes port ```8080``` to the outside world.
-The docker image uses Alpine, you can add custom interpreters or runtimes with ```apk add```, for Java do: ```apk add openjdk8```. To run the image, first do ```go build``` and then ```docker-compose up```.
+The docker image uses Alpine, you can add custom interpreters or runtimes with ```apk add```, for Java do: ```apk add openjdk8```. To run the image, execute ```docker-compose up```.
 
 ## Warning
 **DO NOT GIVE USERS ACCESS TO PROGRAMS THAT ALLOW ARBITRARY CODE EXECUTION, SUCH AS SHELLS, INTERACTIVE INTERPRETERS OR OTHER PROGRAMS.
