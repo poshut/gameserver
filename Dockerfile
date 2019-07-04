@@ -1,14 +1,20 @@
-FROM archlinux/base
+FROM golang:1.12-alpine as builder
 
 LABEL author="Richard Wohlbold" version="0.1"
 
-RUN pacman -Syy --noconfirm go
+WORKDIR "/go/src/app"
+ENV CGO_ENABLED=0 GOOS=linux
+COPY ./cmd .
+RUN go get -d -v ./...
+RUN go build -o /go/bin/gameserver ./gameserver/
 
-WORKDIR "/app"
-ADD ./cmd/gameserver/ /app/
-RUN go build -o gameserver .
+FROM scratch
+COPY --from=builder /go/bin/gameserver /
+COPY ./config /config
 
-# Add java runtime:
-# RUN pacman -S jdk10-openjdk
+# CMD ["/gameserver", "--config", "/config/server.conf", "--port", "8080"]
+EXPOSE 8080
 
-CMD ["/app/gameserver", "--config", "/config/server.conf", "--port", "8080"]
+CMD ["/gameserver", "--config", "/config/server.conf", "--port", "8080", "--output", "/dev/null"]
+
+
